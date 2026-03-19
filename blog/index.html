@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — WellbeingStack</title>
+  <meta name="description" content="Essays on work-life balance, burnout, management, and finding a sustainable way through tech. By Xiao Yue." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a18;
+      --ink-soft: #4a4a46;
+      --ink-muted: #8a8a84;
+      --paper: #f7f5f0;
+      --paper-warm: #edeae2;
+      --moss: #3d6b4f;
+      --moss-light: #e8f0eb;
+      --clay: #c4784a;
+      --clay-light: #f5ebe3;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(247, 245, 240, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--paper-warm);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--moss); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--ink-soft);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--moss); }
+
+    .nav-cta {
+      color: var(--paper) !important;
+      background: var(--moss);
+      padding: 0.5rem 1.25rem;
+      border-radius: 2rem;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 9rem 3rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .breadcrumb a { color: var(--moss); text-decoration: none; }
+
+    .page-title {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      max-width: 540px;
+    }
+
+    /* COMING SOON */
+    .coming-soon {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 3rem 8rem;
+    }
+
+    .placeholder-notice {
+      background: var(--moss-light);
+      border-radius: 1.25rem;
+      padding: 3rem;
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+    }
+
+    .notice-icon { font-size: 2rem; flex-shrink: 0; }
+
+    .notice-title {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .notice-body {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    /* PLACEHOLDER POSTS */
+    .posts-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .post-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      border: 1px solid var(--paper-warm);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .post-tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--moss);
+      margin-bottom: 0.4rem;
+    }
+
+    .post-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+
+    .post-excerpt {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    .post-badge {
+      font-size: 0.7rem;
+      background: var(--paper-warm);
+      color: var(--ink-muted);
+      padding: 0.3rem 0.75rem;
+      border-radius: 2rem;
+      white-space: nowrap;
+    }
+
+    /* NOTIFY */
+    .notify-section {
+      background: var(--ink);
+      padding: 5rem 3rem;
+      text-align: center;
+    }
+
+    .notify-inner { max-width: 500px; margin: 0 auto; }
+
+    .notify-title {
+      font-family: var(--serif);
+      font-size: 2rem;
+      color: var(--paper);
+      margin-bottom: 0.75rem;
+    }
+
+    .notify-body {
+      font-size: 0.9rem;
+      color: rgba(247,245,240,0.65);
+      margin-bottom: 2rem;
+    }
+
+    .notify-form {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+
+    .notify-input {
+      flex: 1;
+      max-width: 280px;
+      padding: 0.8rem 1.2rem;
+      border-radius: 2rem;
+      border: 1px solid rgba(247,245,240,0.2);
+      background: rgba(247,245,240,0.08);
+      color: var(--paper);
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      outline: none;
+    }
+
+    .notify-input::placeholder { color: rgba(247,245,240,0.35); }
+    .notify-input:focus { border-color: var(--moss); }
+
+    .notify-btn {
+      background: var(--moss);
+      color: var(--paper);
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.8rem 1.5rem;
+      border-radius: 2rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .notify-btn:hover { background: var(--clay); }
+
+    footer {
+      padding: 2.5rem 3rem;
+      border-top: 1px solid var(--paper-warm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); }
+    .footer-logo span { color: var(--moss); }
+    .footer-note { font-size: 0.8rem; color: var(--ink-muted); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.8rem; color: var(--ink-muted); text-decoration: none; }
+    .footer-links a:hover { color: var(--moss); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .page-header, .coming-soon { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .notify-section { padding: 4rem 1.5rem; }
+      .notify-form { flex-direction: column; align-items: center; }
+      .post-card { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../" class="nav-logo">Wellbeing<span>Stack</span></a>
+    <ul class="nav-links">
+      <li><a href="../#about">About</a></li>
+      <li><a href="../#mentorship">Mentorship</a></li>
+      <li><a href="./" class="active">Blog</a></li>
+      <li><a href="../#mentorship" class="nav-cta">Book a Session</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <p class="breadcrumb"><a href="../">Home</a> / Blog</p>
+    <h1 class="page-title">Thoughts in progress</h1>
+    <p class="page-subtitle">Essays and reflections on balance, burnout, management, and finding a sustainable way through tech. Written as I figure it out.</p>
+  </div>
+
+  <div class="coming-soon">
+    <div class="placeholder-notice">
+      <div class="notice-icon">✍️</div>
+      <div>
+        <h2 class="notice-title">First posts coming soon</h2>
+        <p class="notice-body">I'm working on the first batch of essays. They'll be candid, practical, and grounded in real experience — not polished frameworks or generic advice. Sign up below to get notified when they're live.</p>
+      </div>
+    </div>
+
+    <div class="posts-grid">
+      <div class="post-card">
+        <div>
+          <div class="post-tag">Burnout</div>
+          <h3 class="post-title">Why I stopped optimizing my weekends — and started actually resting</h3>
+          <p class="post-excerpt">For years I treated Saturday like a sprint. Here's what changed.</p>
+        </div>
+        <span class="post-badge">Coming soon</span>
+      </div>
+      <div class="post-card">
+        <div>
+          <div class="post-tag">Management</div>
+          <h3 class="post-title">The hardest conversation I had with a burnt-out direct report</h3>
+          <p class="post-excerpt">I didn't know what to say. Turns out, that was the right start.</p>
+        </div>
+        <span class="post-badge">Coming soon</span>
+      </div>
+      <div class="post-card">
+        <div>
+          <div class="post-tag">AI & Work</div>
+          <h3 class="post-title">Is the AI race making us work more — or just more anxiously?</h3>
+          <p class="post-excerpt">A reflection on what's actually changed about how we show up at work.</p>
+        </div>
+        <span class="post-badge">Coming soon</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="notify-section">
+    <div class="notify-inner">
+      <h2 class="notify-title">Get notified when posts go live</h2>
+      <p class="notify-body">No newsletter spam. Just a note when something new and worth reading goes up.</p>
+      <div class="notify-form">
+        <input type="email" class="notify-input" placeholder="your@email.com" />
+        <button class="notify-btn">Notify me</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Wellbeing<span>Stack</span></div>
+    <div class="footer-note">© 2025 Xiao Yue · Made with care in Seattle</div>
+    <div class="footer-links">
+      <a href="./">Blog</a>
+      <a href="../#mentorship">Mentorship</a>
+      <a href="../#about">About</a>
+    </div>
+  </footer>
+
+</body>
+</html>
